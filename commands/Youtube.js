@@ -6,6 +6,7 @@ const env  = require('../env.json')
 
 module.exports = class Youtube {
     static get YT_URI() { return 'https://www.youtube.com/watch?v=' }
+    static get API_URL() { return 'https://www.googleapis.com/youtube/v3/search' }
 
     static async play(bot) {
         bot.argv.shift()
@@ -44,14 +45,18 @@ module.exports = class Youtube {
         let dispatcher = await connection.playStream(ytdl(uri, {
             filter: 'audioonly'
         }))
-        
+
+        console.log('Streaming runing...')
+
         bot.reply(`**Now playing ** ${info.title} **from** ${info.author.name} *(${Youtube.formatTime(info.player_response.videoDetails.lengthSeconds)})*`)
 
         dispatcher.on('end', () => {
+            console.log('Streaming ended.')
             bot.message.member.voiceChannel.leave()
         })
 
         dispatcher.on('error', () => {
+            console.error('Error on reading the stream.')
             bot.error('Oups, an error occured when reading the stream. :(')
         })
     }
@@ -63,8 +68,10 @@ module.exports = class Youtube {
     static search(argv) {
         argv.shift()
 
+        console.log('Youtube search API requested.')
+        
         return API.query({
-            uri: 'https://www.googleapis.com/youtube/v3/search',
+            uri: Youtube.API_URL,
             params: {
                 part: 'id',
                 maxResults: 5,

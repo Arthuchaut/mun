@@ -8,6 +8,8 @@ module.exports = class Wiki {
     static search(bot) {
         bot.argv.shift()
 
+        console.log('Wiki requested.')
+        
         API.query({
             uri: Wiki.URL,
             params: {
@@ -20,7 +22,9 @@ module.exports = class Wiki {
         }).then(res => {
             for (let i = 0; i < res[1].length; ++i) {
                 if (res[2][i].length) {
-                    bot.reply(`**${res[1][i]}**\n${res[2][i]}`)
+                    bot.message.channel.send(`**${res[1][i]}**\n${res[2][i]}`, {
+                        tts: true
+                    })
                 }
             }
         })
