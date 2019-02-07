@@ -22,12 +22,12 @@ client.on('message', message => {
 client.on('ready', () => {
     console.log(`Bot connected has ${client.user.tag}`)
 
-    client.user.setAvatar('./img/bot_avatar.jpg')
+    client.user.setAvatar('./img/mun_avatar.png')
         .then(user => console.log('Avatar setted !'))
         .catch(console.error)
 
     client.user.setActivity('I play Pokemon Go every day.')
-        .then(user => console.log('Game changed !'))
+        .then(user => console.log('Activity changed !'))
         .catch(console.error)
 })
 
