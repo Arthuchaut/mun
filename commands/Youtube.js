@@ -66,8 +66,6 @@ module.exports = class Youtube {
     }
 
     static search(argv) {
-        argv.shift()
-
         console.log('Youtube search API requested.')
         
         return API.query({
