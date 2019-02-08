@@ -49,7 +49,9 @@ module.exports = class Youtube {
 
         console.log('Streaming runing...')
 
-        bot.reply(`**Now playing ** ${info.title} **from** ${info.author.name} *(${Youtube.formatTime(info.player_response.videoDetails.lengthSeconds)})*`)
+        bot.reply(`**Now playing ** ${info.title}\n` +
+                  `**From** ${info.author.name}\n` +
+                  `**During** ${Youtube.formatTime(info.player_response.videoDetails.lengthSeconds)}`)
 
         dispatcher.on('end', () => {
             console.log('Streaming ended.')
@@ -83,12 +85,14 @@ module.exports = class Youtube {
     static formatTime(sec) {
         sec = Number(sec)
 
+        let hh = Math.floor(sec / 3600)
         let mm = Math.floor(sec % 3600 / 60)
         let ss = Math.floor(sec % 3600 % 60)
 
+        hh = hh < 10 ? '0' + hh : hh
         mm = mm < 10 ? '0' + mm : mm
         ss = ss < 10 ? '0' + ss : ss
 
-        return mm + ':' + ss
+        return hh + ':' + mm + ':' + ss
     }
 }
