@@ -43,7 +43,8 @@ module.exports = class Youtube {
         let connection = await bot.message.member.voiceChannel.join()
 
         let dispatcher = await connection.playStream(ytdl(uri, {
-            filter: 'audioonly'
+            filter: 'audioonly',
+            quality: 'lowest'
         }))
 
         console.log('Streaming runing...')
