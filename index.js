@@ -22,7 +22,11 @@ client.on('message', message => {
 client.on('ready', () => {
     console.log(`Bot connected has ${client.user.tag}`)
 
-    client.user.setAvatar('./img/mun_avatar.png')
+    client.user.setUsername('Hal-9000')
+        .then(user => console.log('Username setted !'))
+        .catch(console.error)   
+
+    client.user.setAvatar('./img/hal9000.png')
         .then(user => console.log('Avatar setted !'))
         .catch(console.error)
 
